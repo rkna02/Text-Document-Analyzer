@@ -22,7 +22,8 @@ public class Document {
     /**
      *
      * @param docId the document identifier
-     * @param fileName the name of the file with the contents of the document
+     * @param fileName the name of the file with the contents of
+     *                 the document
      */
     public Document(String docId, String fileName) {
         // TODO: Implement this constructor
@@ -60,7 +61,8 @@ public class Document {
      * Obtain a specific sentence from the document.
      * Sentences are numbered starting from 1.
      *
-     * @param sentence_number the position of the sentence to retrieve, {@code 1 <= sentence_number <= this.getSentenceCount()}
+     * @param sentence_number the position of the sentence to retrieve,
+     * {@code 1 <= sentence_number <= this.getSentenceCount()}
      * @return the sentence indexed by {@code sentence_number}
      */
     public String getSentence(int sentence_number) {
@@ -96,8 +98,11 @@ public class Document {
 
     /**
      * Obtain the sentence with the most positive sentiment in the document
-     * @return the sentence with the most positive sentiment in the document; when multiple sentences share the same sentiment value, returns the sentence that appears later in the document
-     * @throws NoSuitableSentenceException if there is no sentence that expresses a positive sentiment
+     * @return the sentence with the most positive sentiment in the
+     * document; when multiple sentences share the same sentiment value
+     * returns the sentence that appears later in the document
+     * @throws NoSuitableSentenceException if there is no sentence that
+     * expresses a positive sentiment
      */
     public String getMostPositiveSentence() throws NoSuitableSentenceException {
         // TODO: Implement this method
@@ -106,8 +111,11 @@ public class Document {
 
     /**
      * Obtain the sentence with the most negative sentiment in the document
-     * @return the sentence with the most negative sentiment in the document; when multiple sentences share the same sentiment value, returns the sentence that appears later in the document
-     * @throws NoSuitableSentenceException if there is no sentence that expresses a negative sentiment
+     * @return the sentence with the most negative sentiment in the document;
+     * when multiple sentences share the same sentiment value, returns the
+     * sentence that appears later in the document
+     * @throws NoSuitableSentenceException if there is no sentence that
+     * expresses a negative sentiment
      */
     public String getMostNegativeSentence() throws NoSuitableSentenceException {
         // TODO: Implement this method

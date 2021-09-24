@@ -9,13 +9,14 @@ import cpen221.mp1.exceptions.NoSuitableSentenceException;
 
 public class SentimentAnalysis {
 
-    public static Sentiment getMostPositiveSentence(Document document) throws
-        NoSuitableSentenceException {
+    public static Sentiment getMostPositiveSentence(Document document)
+        throws NoSuitableSentenceException {
         // TODO: Implement this method
         return null;
     }
 
-    public static Sentiment getMostNegativeSentence(Document document) throws NoSuitableSentenceException {
+    public static Sentiment getMostNegativeSentence(Document document)
+        throws NoSuitableSentenceException {
         // TODO: Implement this method
         return null;
     }

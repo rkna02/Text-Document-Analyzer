@@ -25,13 +25,13 @@ public class Task2SmokeTests {
 
     @Test
     public void testUniqueWordRatio() {
-        Assertions.assertEquals(0.555, testDocument2.uniqueWordRatio(), 0.005);
+        Assertions.assertEquals(0.518, testDocument2.uniqueWordRatio(), 0.005);
     }
 
 
     @Test
     public void testHapaxLegomanaRatio() {
-        Assertions.assertEquals(0.40, testDocument1.hapaxLegomanaRatio(), 0.005);
+        Assertions.assertEquals(0.371, testDocument1.hapaxLegomanaRatio(), 0.005);
     }
 
 }

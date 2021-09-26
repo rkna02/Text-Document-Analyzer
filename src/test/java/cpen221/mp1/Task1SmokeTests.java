@@ -20,18 +20,18 @@ public class Task1SmokeTests {
 
     @Test
     public void testAvgSentenceLength() {
-        Assertions.assertEquals(10.388, testDocument1.averageSentenceLength(), 0.005);
+        Assertions.assertEquals(10.027, testDocument1.averageSentenceLength(), 0.005);
     }
 
     @Test
     public void testAvgSentenceComplexity() {
-        Assertions.assertEquals(1.75, testDocument2.averageSentenceComplexity(), 0.005);
+        Assertions.assertEquals(1.702, testDocument2.averageSentenceComplexity(), 0.005);
     }
 
     @Test
     public void testSentences() {
-        Assertions.assertEquals(36, testDocument1.numSentences());
-        Assertions.assertEquals("\"There's plenty of summer to come,\" replied the cricket, \"and lots of time to fill the pantry before winter.", testDocument2.getSentence(5));
+        Assertions.assertEquals(37, testDocument1.numSentences());
+        Assertions.assertEquals("\"We can't do that,\" they said, \"We must store away food for the winter.", testDocument2.getSentence(5));
     }
 
 }

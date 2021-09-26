@@ -20,18 +20,18 @@ public class Task2SmokeTests {
 
     @Test
     public void testAvgWordLength() {
-        Assertions.assertEquals(4.02, testDocument1.averageWordLength(), 0.005);
+        Assertions.assertEquals(4.08, testDocument1.averageWordLength(), 0.005);
     }
 
     @Test
     public void testUniqueWordRatio() {
-        Assertions.assertEquals(0.518, testDocument2.uniqueWordRatio(), 0.005);
+        Assertions.assertEquals(0.524, testDocument2.uniqueWordRatio(), 0.005);
     }
 
 
     @Test
     public void testHapaxLegomanaRatio() {
-        Assertions.assertEquals(0.371, testDocument1.hapaxLegomanaRatio(), 0.005);
+        Assertions.assertEquals(0.355, testDocument1.hapaxLegomanaRatio(), 0.005);
     }
 
 }

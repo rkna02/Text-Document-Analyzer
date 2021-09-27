@@ -29,6 +29,15 @@ public class Document {
         // TODO: Implement this constructor
     }
 
+    /**
+     * Obtain the identifier for this document
+     * @return the identifier for this document
+     */
+    public String getDocId() {
+        // TODO: Implement this method
+        return null;
+    }
+
     /* ------- Task 1 ------- */
 
     public double averageWordLength() {

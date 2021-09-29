@@ -257,21 +257,20 @@ public class Document {
 
         ArrayList<String> phraseArrayList = new ArrayList<String>();
         for(String phrase : lowDocText2.split("[,;:.!?]")){
-            if(phrase.length() != 0){
-                if(phrase.length() == 1){
-                    if(((phrase.charAt(0) >= 'a' && phrase.charAt(0) <= 'z'))){
+            if(phrase.length() != 0){ //makes sure phrase to be added actually contains letters
+                for(int j=0; j<phrase.length(); j++){
+                    if(((phrase.charAt(j) >= 'a' && phrase.charAt(j) <= 'z'))){
                         phraseArrayList.add(phrase);
                         System.out.println(phrase);
+                        break;
                     }
                 }
-                else {
-                    phraseArrayList.add(phrase);
-                    System.out.println(phrase);
-                }
+
+
             }
         }
 
-        return (double) (phraseArrayList.size()-1)/numSentences();
+        return (double) (phraseArrayList.size()) / numSentences();
     }
 
     /* ------- Task 3 ------- */

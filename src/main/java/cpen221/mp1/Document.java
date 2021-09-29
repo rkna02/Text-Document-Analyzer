@@ -19,6 +19,8 @@ public class Document {
     /*  all the basic things  */
 
     private StringBuilder DocText = new StringBuilder();
+    private String lowDocText = new String();
+    private ArrayList<String> wordArrayList = new ArrayList<String>();
 
     /**
      * Create a new document using a URL
@@ -38,7 +40,7 @@ public class Document {
         catch (IOException ioe) {
             System.out.println("Problem reading from URL!");
         }
-        System.out.println("hi");
+        init();
     }
 
     /**
@@ -64,16 +66,18 @@ public class Document {
         catch (IOException ioe) {
             System.out.println("Problem reading file!");
         }
+        init();
     }
 
     /* ------- Task 1 ------- */
-
-    public double averageWordLength() {
-        String lowDocText = new String(DocText.toString());
+    /**
+     *Initializes wordArrayList which is a list of the words of the document
+     */
+    public void init() {
         lowDocText = DocText.toString().toLowerCase();
         int sum=0;
         int bad=0;
-        ArrayList<String> wordArrayList = new ArrayList<String>();
+
         for(String word : lowDocText.split(" ")){
             if(word.length() != 0){
                 if(word.length() == 1){
@@ -86,7 +90,15 @@ public class Document {
                 }
             }
         }
+    }
 
+    /**
+     * @return the average length of the words in the document
+     */
+    public double averageWordLength() {
+
+        int bad = 0;
+        int sum =0 ;
         for(int i=0; i<wordArrayList.size(); i++){
             char[] charArray = wordArrayList.get(i).toCharArray();
             for (int j = 0; j < charArray.length; j++) {
@@ -125,44 +137,12 @@ public class Document {
         return (double) sum/(wordCount);
     }
 
+    /**
+     * @return the ratio of unique words (different words) to the total number of words in the document
+     */
     public double uniqueWordRatio() {
-        String lowDocText = new String(DocText.toString());
-        lowDocText = DocText.toString().toLowerCase();
         int sum=0;
         int bad=0;
-        ArrayList<String> wordArrayList = new ArrayList<String>();
-        for(String word : lowDocText.split(" ")){
-            if(word.length() != 0){
-                if(word.length() == 1){
-                    if(((word.charAt(0) >= 'a' && word.charAt(0) <= 'z'))){
-                        wordArrayList.add(word);
-                    }
-                }
-                else {
-                    wordArrayList.add(word);
-                }
-            }
-        }
-        System.out.println("hi");
-
-       /* Map<String, Integer> UNIQ = new HashMap<String, Integer>();
-
-        for (String c : wordArrayList) {
-            if (UNIQ.containsKey(c)) {
-                UNIQ.replace(c, UNIQ.get(c) + 1);
-            } else {
-                UNIQ.put(c, 1);
-            }
-        }
-
-        int uniqueWords = 0;
-        for(String word : UNIQ.keySet()){
-            if(UNIQ.get(word) == 1){
-                uniqueWords++;
-            }
-        }
-
-        return UNIQ.size()/wordArrayList.size();*/
 
         Set<String> set = new HashSet<String>();
 
@@ -179,45 +159,11 @@ public class Document {
         return (double) set.size()/wordArrayList.size();
 
     }
-
+    /**
+     * @return the hapaxLegomanaRatio which is the ratio of words that only occur exactly once to that total number of words
+     */
     public double hapaxLegomanaRatio() {
-        String lowDocText = new String(DocText.toString());
-        lowDocText = DocText.toString().toLowerCase();
         int sum=0;
-        int bad=0;
-        ArrayList<String> wordArrayList = new ArrayList<String>();
-        for(String word : lowDocText.split(" ")){
-            if(word.length() != 0){
-                if(word.length() == 1){
-                    if(((word.charAt(0) >= 'a' && word.charAt(0) <= 'z'))){
-                        wordArrayList.add(word);
-                    }
-                }
-                else {
-                    wordArrayList.add(word);
-                }
-            }
-        }
-        System.out.println("hi");
-
-       /* Map<String, Integer> UNIQ = new HashMap<String, Integer>();
-
-        for (String c : wordArrayList) {
-            if (UNIQ.containsKey(c)) {
-                UNIQ.replace(c, UNIQ.get(c) + 1);
-            } else {
-                UNIQ.put(c, 1);
-            }
-        }
-
-        int uniqueWords = 0;
-        for(String word : UNIQ.keySet()){
-            if(UNIQ.get(word) == 1){
-                uniqueWords++;
-            }
-        }
-
-        return UNIQ.size()/wordArrayList.size();*/
 
         Map<String, Integer> UNIQ = new HashMap<>();
 
@@ -242,8 +188,6 @@ public class Document {
             }
         }
 
-
-
         return (double) uniqueCount/wordArrayList.size();
     }
 
@@ -255,7 +199,7 @@ public class Document {
      */
     public int numSentences() {
         int sentenceCount = 0;
-        StringBuilder lowDocText = new StringBuilder();
+
 
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
         iterator.setText(DocText.toString());
@@ -280,7 +224,7 @@ public class Document {
      */
     public String getSentence(int sentence_number) {
         int sentenceCount = 0;
-        ArrayList<String> lowDocText = new ArrayList<>();
+        ArrayList<String> lowDocText2 = new ArrayList<>();
 
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
         iterator.setText(DocText.toString());
@@ -290,35 +234,23 @@ public class Document {
              start = end, end = iterator.next()) {
 
             String sentence = DocText.toString().substring(start, end);
-            lowDocText.add(sentence);
+            lowDocText2.add(sentence);
 
         }
 
-        return lowDocText.get(sentence_number-1).trim(); //remove any trailing spaces
+        return lowDocText2.get(sentence_number-1).trim(); //remove any trailing spaces
     }
 
+    /**
+     * @return the average sentence length
+     */
     public double averageSentenceLength() {
-        String lowDocText2 = new String(DocText.toString());
-        lowDocText2 = DocText.toString().toLowerCase();
-
-        ArrayList<String> wordArrayList = new ArrayList<String>();
-        for(String word : lowDocText2.split(" ")){
-            if(word.length() != 0){
-                if(word.length() == 1){
-                    if(((word.charAt(0) >= 'a' && word.charAt(0) <= 'z'))){
-                        wordArrayList.add(word);
-                    }
-                }
-                else {
-                    wordArrayList.add(word);
-                }
-            }
-        }
-
-
         return (double) wordArrayList.size()/numSentences();
     }
 
+    /**
+     * @return the average sentence complexity, which is the average number of phrases per sentence
+     */
     public double averageSentenceComplexity() {
         String lowDocText2 = new String(DocText.toString());
         lowDocText2 = DocText.toString().toLowerCase();
@@ -367,8 +299,7 @@ public class Document {
      * expresses a positive sentiment
      */
     public String getMostPositiveSentence() throws NoSuitableSentenceException {
-        // TODO: Implement this method
-        return null;
+        return getMostPositiveSentence();
     }
 
     /**
@@ -380,8 +311,7 @@ public class Document {
      * expresses a negative sentiment
      */
     public String getMostNegativeSentence() throws NoSuitableSentenceException {
-        // TODO: Implement this method
-        return null;
+        return getMostPositiveSentence();
     }
 
 }

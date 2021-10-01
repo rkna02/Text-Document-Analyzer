@@ -21,6 +21,8 @@ public class Task2SmokeTests {
     public static void setupTests() throws MalformedURLException {
         testDocument1 = new Document("The Ant and The Cricket", "resources/antcrick.txt");
         testDocument2 = new Document("The Ant and The Cricket", new URL("http://textfiles.com/stories/antcrick.txt"));
+        testDocument3 = new Document("Williams", "resources/shakes.txt");
+        testDocument4 = new Document("Have a good day", "resources/day.txt");
     }
 
     @Test
@@ -46,25 +48,11 @@ public class Task2SmokeTests {
         catch(NoSuitableSentenceException nse){
             System.out.println("oof");
         }
-
     }
 
-//------------------------------------------------------------------------------------------------------------
-    @BeforeAll
-    public static void setupTests_2() throws MalformedURLException {
-        testDocument3 = new Document("Williams", "resources/shakes.txt");
-
-    }
     @Test
     public void testHapaxLegomanaRatio2() {
-        Assertions.assertEquals(0.866667, testDocument3.hapaxLegomanaRatio(), 0.005);
-    }
-    
- /*
-    @BeforeAll
-    public static void setupTests_3() throws MalformedURLException {
-        testDocument4 = new Document("Have a good day", "resources/day.txt");
-
+        Assertions.assertEquals(0.875, testDocument3.hapaxLegomanaRatio(), 0.005);
     }
 
 
@@ -72,8 +60,6 @@ public class Task2SmokeTests {
     public void testHapaxLegomanaRatio3() {
         Assertions.assertEquals(0.826086957, testDocument4.hapaxLegomanaRatio(), 0.005);
     }
-
-     */
 
 
 }

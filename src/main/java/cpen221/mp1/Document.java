@@ -211,7 +211,7 @@ public class Document {
              start = end, end = iterator.next()) {
 
             String sentence = DocText.toString().substring(start, end);
-           // System.out.println(sentence);
+            // System.out.println(sentence);
             sentenceCount++;
         }
         return sentenceCount;
@@ -247,6 +247,7 @@ public class Document {
      * @return the average sentence length
      */
     public double averageSentenceLength() {
+        System.out.println(wordArrayList.size() + " " + numSentences());
         return (double) wordArrayList.size()/numSentences();
     }
 
@@ -256,7 +257,7 @@ public class Document {
     public double averageSentenceComplexity() {
         String lowDocText2 = new String(DocText.toString());
         lowDocText2 = DocText.toString().toLowerCase();
-
+        int count=0;
         ArrayList<String> phraseArrayList = new ArrayList<String>();
         for(String phrase : lowDocText2.split("[,;:.!?]")){
             if(phrase.length() != 0){ //makes sure phrase to be added actually contains letters
@@ -264,6 +265,7 @@ public class Document {
                     if(((phrase.charAt(j) >= 'a' && phrase.charAt(j) <= 'z'))){
                         phraseArrayList.add(phrase);
                         System.out.println(phrase);
+                        count++;
                         break;
                     }
                 }
@@ -271,7 +273,7 @@ public class Document {
 
             }
         }
-
+        System.out.println(count);
         return (double) (phraseArrayList.size()) / numSentences();
     }
 

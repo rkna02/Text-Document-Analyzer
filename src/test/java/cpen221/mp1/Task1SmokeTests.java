@@ -18,6 +18,7 @@ public class Task1SmokeTests {
     public static void setupTests() throws MalformedURLException {
         testDocument1 = new Document("The Ant and The Cricket", "resources/antcrick.txt");
         testDocument2 = new Document("The Ant and The Cricket", new URL("http://textfiles.com/stories/antcrick.txt"));
+        testDocument3 = new Document("Williams", "resources/shakes.txt");
     }
 
     @Test
@@ -27,7 +28,7 @@ public class Task1SmokeTests {
 
     @Test
     public void testAvgSentenceComplexity() {
-        Assertions.assertEquals(1.702, testDocument2.averageSentenceComplexity(), 0.005);
+        Assertions.assertEquals(1.702, testDocument1.averageSentenceComplexity(), 0.005);
     }
 
     @Test
@@ -38,28 +39,21 @@ public class Task1SmokeTests {
 
 
     // ------------------------------------------------------------------------------------------------------------
-    @BeforeAll
-    public static void setupTests2() throws MalformedURLException {
-        testDocument3 = new Document("Williams", "resources/shakes.txt");
-
-    }
 
     @Test
     public void testAvgSentenceLength2() {
-        Assertions.assertEquals( 7.5,testDocument3.averageSentenceLength(), 0.005);
+        Assertions.assertEquals( 8,testDocument3.averageSentenceLength(), 0.005);
     }
 
     @Test
     public void testAvgSentenceComplexity2() {
-        Assertions.assertEquals(0, testDocument3.averageSentenceComplexity(), 0.005);
+        Assertions.assertEquals(1, testDocument3.averageSentenceComplexity(), 0.005);
     }
 
-    /*
     @Test
     public void testSentences2() {
-        Assertions.assertEquals(#, testDocument3.numSentences());
-        Assertions.assertEquals("\", testDocument3.getSentence(#));
+        Assertions.assertEquals(2, testDocument3.numSentences());
+        Assertions.assertEquals("/ Thou art more lovely and more temperate.", testDocument3.getSentence(2));
     }
 
-     */
 }

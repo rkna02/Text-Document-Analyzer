@@ -11,6 +11,8 @@ public class Task1SmokeTests {
 
     private static Document testDocument1;
     private static Document testDocument2;
+    private static Document testDocument3;
+    private static Document testDocument4;
 
     @BeforeAll
     public static void setupTests() throws MalformedURLException {
@@ -34,4 +36,30 @@ public class Task1SmokeTests {
         Assertions.assertEquals("\"We can't do that,\" they said, \"We must store away food for the winter.", testDocument2.getSentence(5));
     }
 
+
+    // ------------------------------------------------------------------------------------------------------------
+    @BeforeAll
+    public static void setupTests2() throws MalformedURLException {
+        testDocument3 = new Document("Williams", "resources/shakes.txt");
+
+    }
+
+    @Test
+    public void testAvgSentenceLength2() {
+        Assertions.assertEquals( 7.5,testDocument3.averageSentenceLength(), 0.005);
+    }
+
+    @Test
+    public void testAvgSentenceComplexity2() {
+        Assertions.assertEquals(0, testDocument3.averageSentenceComplexity(), 0.005);
+    }
+
+    /*
+    @Test
+    public void testSentences2() {
+        Assertions.assertEquals(#, testDocument3.numSentences());
+        Assertions.assertEquals("\", testDocument3.getSentence(#));
+    }
+
+     */
 }

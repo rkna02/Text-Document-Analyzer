@@ -21,13 +21,15 @@ public class Document {
     private StringBuilder DocText = new StringBuilder();
     private String lowDocText = new String();
     private ArrayList<String> wordArrayList = new ArrayList<String>();
-
+    private  String docId;
     /**
      * Create a new document using a URL
      * @param docId the document identifier
      * @param docURL the URL with the contents of the document
      */
     public Document(String docId, URL docURL) {
+        //this.docId = docId;
+
         try {
             String documentURL = docURL.toString();
             Scanner urlScanner = new Scanner(new URL(documentURL).openStream());

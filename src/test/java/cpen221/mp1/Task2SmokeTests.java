@@ -8,7 +8,8 @@ import java.net.MalformedURLException;
 import cpen221.mp1.exceptions.NoSuitableSentenceException;
 import java.net.URL;
 
-import static cpen221.mp1.sentiments.SentimentAnalysis.getMostPositiveSentence;
+//import static cpen221.mp1.sentiments.SentimentAnalysis.getMostNegativeSentence;
+//import static cpen221.mp1.sentiments.SentimentAnalysis.getMostPositiveSentence;
 
 public class Task2SmokeTests {
 
@@ -43,8 +44,16 @@ public class Task2SmokeTests {
     }
 
     @Test
-    public void testSentiments() {
-        try {Assertions.assertEquals("test", getMostPositiveSentence());}
+    public void testSentimentsPos() {
+        try {Assertions.assertEquals("Yes!", testDocument1.getMostPositiveSentence());}
+        catch(NoSuitableSentenceException nse){
+            System.out.println("oof");
+        }
+    }
+
+    @Test
+    public void testSentimentsNeg() {
+        try {Assertions.assertEquals("Then the snow fell and she could find nothing at all to eat.", testDocument1.getMostNegativeSentence());}
         catch(NoSuitableSentenceException nse){
             System.out.println("oof");
         }

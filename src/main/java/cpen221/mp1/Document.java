@@ -302,7 +302,7 @@ public class Document {
      * expresses a positive sentiment
      */
     public String getMostPositiveSentence() throws NoSuitableSentenceException {
-        return getMostPositiveSentence();
+        return cpen221.mp1.sentiments.SentimentAnalysis.getMostPositiveSentence(this);
     }
 
     /**
@@ -314,7 +314,7 @@ public class Document {
      * expresses a negative sentiment
      */
     public String getMostNegativeSentence() throws NoSuitableSentenceException {
-        return getMostPositiveSentence();
+        return cpen221.mp1.sentiments.SentimentAnalysis.getMostNegativeSentence(this);
     }
 
 }

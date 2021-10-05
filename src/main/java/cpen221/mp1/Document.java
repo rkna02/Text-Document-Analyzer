@@ -317,4 +317,41 @@ public class Document {
         return cpen221.mp1.sentiments.SentimentAnalysis.getMostNegativeSentence(this);
     }
 
+    /* ------- Task 4 ------- */
+
+    /* Helper Functions */
+
+    /**
+     * Compute the probability of a word appearing in two documents
+     * @param word a word appearing in both documents
+     * @return The probability of the word appearing in both documents
+     */
+    public double Probability(String word) {
+        double count = 0.0;
+
+        for (String s: wordArrayList) {
+            if (word.equals(s)) {
+                count = count + 1.0;
+            }
+        }
+        return count / wordArrayList.size();
+    }
+
+    /**
+     * Stores all the words appearing in both documents in a set
+     * @param doc list of strings
+     * @return A set containing all the words that appear in both lists
+     */
+    public Set<String> wordAppearances(Document doc) {
+        Set<String> wordAppearances = new HashSet<>();
+
+        //Add words that appear in both lists to a set
+        for (String c: this.wordArrayList) {
+            if (doc.wordArrayList.contains(c)) {
+                wordAppearances.add(c);
+            }
+        }
+        return wordAppearances;
+    }
+
 }

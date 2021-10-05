@@ -23,7 +23,7 @@ public class SentimentAnalysis {
             String most_positive_sentence = new String();
 
             float score_value =0;
-            for ( int i =1; i < doc_1.numSentences(); i++){
+            for ( int i =1; i <= doc_1.numSentences(); i++){
                 String txt = doc_1.getSentence(i);
                 Document doc = Document.newBuilder().setContent(txt).setType(Type.PLAIN_TEXT).build();
                 AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
@@ -32,6 +32,8 @@ public class SentimentAnalysis {
                 if (sentiment != null) {
                     System.out.println(sentiment.getScore());
                     System.out.println(sentiment.getMagnitude());
+                    System.out.println(txt);
+                    System.out.println("");
                 }
 
                 if(sentiment.getScore() >=score_value){
@@ -59,7 +61,7 @@ public class SentimentAnalysis {
             String most_negative_sentence = new String();
 
             float score_value =0;
-            for ( int i =1; i < doc_2.numSentences(); i++){
+            for ( int i =1; i <= doc_2.numSentences(); i++){
                 String txt = doc_2.getSentence(i);
                 Document doc = Document.newBuilder().setContent(txt).setType(Type.PLAIN_TEXT).build();
                 AnalyzeSentimentResponse response = language.analyzeSentiment(doc);

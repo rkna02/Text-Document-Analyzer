@@ -45,7 +45,7 @@ public class Task2SmokeTests {
 
     @Test
     public void testSentimentsPos() {
-        try {Assertions.assertEquals("Yes!", testDocument1.getMostPositiveSentence());}
+        try {Assertions.assertEquals("\"Well, try dancing now!\"", testDocument1.getMostPositiveSentence());}
         catch(NoSuitableSentenceException nse){
             System.out.println("oof");
         }

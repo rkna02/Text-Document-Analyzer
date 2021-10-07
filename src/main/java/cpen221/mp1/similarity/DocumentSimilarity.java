@@ -49,7 +49,7 @@ public class DocumentSimilarity {
             double pi = doc1.Probability(c);
             double qi = doc2.Probability(c);
             double mi = (pi + qi) / 2.0;
-            sum += pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0));
+            sum = pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0));
         }
 
         return sum / 2.0;

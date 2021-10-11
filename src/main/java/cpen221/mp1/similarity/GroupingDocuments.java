@@ -47,30 +47,31 @@ public class GroupingDocuments {
         Set<Document> setWitha = new HashSet<>();
         Set<Document> setWithb = new HashSet<>();
 
-        while(count > numberOfGroups){
-
-
-             for(Document i : allDocuments){
-                for(Document j : allDocuments){
-                    if(i != j) {
-                        if(wtf.documentDivergence(i,j) < best) {
-                            best = wtf.documentDivergence(i,j);
-                            a = i;
-                            b = j;
-                        }
+        for(Document i : allDocuments){
+            for(Document j : allDocuments){
+                if(i != j) {
+                    if(wtf.documentDivergence(i,j) < best) {
+                        best = wtf.documentDivergence(i,j);
+                        a = i;
+                        b = j;
                     }
                 }
-             }
+            }
+        }
 
-             prevBest = best;
+        prevBest = best;
 
-            Set<Document> temp = new HashSet<>();
-            temp.addAll(setWitha);
-            temp.addAll(setWithb);
-            setOfSets.add(temp);
-            setOfSets.remove(setWitha);
-            setOfSets.remove(setWithb);
-            count--;
+        Set<Document> temp = new HashSet<>();
+        temp.addAll(setWitha);
+        temp.addAll(setWithb);
+        setOfSets.add(temp);
+        setOfSets.remove(setWitha);
+        setOfSets.remove(setWithb);
+        count--;
+        setWithb.clear();
+        setWitha.clear();
+
+        while(count > numberOfGroups){
 
             while(setWitha.equals(setWithb)){
                 for(Document i : allDocuments){

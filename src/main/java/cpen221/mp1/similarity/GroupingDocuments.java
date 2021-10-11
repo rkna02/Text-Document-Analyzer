@@ -40,7 +40,7 @@ public class GroupingDocuments {
             setOfSets.add(innerSet);
         }
         int count = setOfSets.size();
-        double best = 0.0;
+        double best = 1000.0;
         double prevBest = 1000.0;
         Document a;
         Document b;
@@ -48,19 +48,31 @@ public class GroupingDocuments {
         Set<Document> setWithb = new HashSet<>();
 
         while(count > numberOfGroups){
-            for(Document i : allDocuments){
+
+
+             for(Document i : allDocuments){
                 for(Document j : allDocuments){
                     if(i != j) {
-                        if(wtf.documentDivergence(i,j) < best && wtf.documentDivergence(i,j) > prevBest) {
+                        if(wtf.documentDivergence(i,j) < best) {
                             best = wtf.documentDivergence(i,j);
                             a = i;
                             b = j;
                         }
                     }
                 }
-            }
+             }
 
-            while(setWitha == setWithb){
+             prevBest = best;
+
+            Set<Document> temp = new HashSet<>();
+            temp.addAll(setWitha);
+            temp.addAll(setWithb);
+            setOfSets.add(temp);
+            setOfSets.remove(setWitha);
+            setOfSets.remove(setWithb);
+            count--;
+
+            while(setWitha.equals(setWithb)){
                 for(Document i : allDocuments){
                 for(Document j : allDocuments){
                     if(i != j) {
@@ -87,8 +99,7 @@ public class GroupingDocuments {
             }
 
             //set with a merge with set with b
-
-            Set<Document> temp = new HashSet<>();
+            temp.clear();
             temp.addAll(setWitha);
             temp.addAll(setWithb);
             setOfSets.add(temp);

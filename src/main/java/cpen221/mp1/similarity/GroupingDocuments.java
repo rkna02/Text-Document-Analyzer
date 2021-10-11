@@ -107,6 +107,10 @@ public class GroupingDocuments {
             setOfSets.remove(setWitha);
             setOfSets.remove(setWithb);
             count--;
+            setWithb.clear();
+            setWitha.clear();
+            setWitha = setWithb;
+            //clear them again
         }
 
         return setOfSets;

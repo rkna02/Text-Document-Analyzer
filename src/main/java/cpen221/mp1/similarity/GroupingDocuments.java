@@ -47,7 +47,7 @@ public class GroupingDocuments {
         Set<Document> setWitha = new HashSet<>();
         Set<Document> setWithb = new HashSet<>();
 
-        while(count < numberOfGroups){
+        while(count > numberOfGroups){
             for(Document i : allDocuments){
                 for(Document j : allDocuments){
                     if(i != j) {
@@ -94,7 +94,7 @@ public class GroupingDocuments {
             setOfSets.add(temp);
             setOfSets.remove(setWitha);
             setOfSets.remove(setWithb);
-            count++;
+            count--;
         }
 
         return setOfSets;

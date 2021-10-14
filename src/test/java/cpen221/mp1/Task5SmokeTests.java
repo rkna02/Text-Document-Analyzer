@@ -77,15 +77,12 @@ public class Task5SmokeTests {
 
     }
 
-    @Test
-    public void separateDocumentsByTwo() {
+   @Test
+    public void allInOne() {
         testSet1 = new HashSet<>();
-        testSet2 = new HashSet<>();
         testSet1.add(testDocument1);
         testSet1.add(testDocument2);
         testSet1.add(testDocument3);
-
-        testSet2.add(testDocument2);
 
         testSet3 = new HashSet<>();
         testSet3.add(testDocument1);

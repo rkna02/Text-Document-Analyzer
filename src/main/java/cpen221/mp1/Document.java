@@ -99,22 +99,22 @@ public class Document {
         int sum =0; //total length of all words in terms of characters
         for(int i=0; i<wordArrayList.size(); i++){
             char[] charArray = wordArrayList.get(i).toCharArray();
-                for (int j = 0; j < charArray.length; j++) {
-                    char ch = charArray[j];
-                    if (!(isLetter(ch))) {
-                        if(!((j==0) || (j==charArray.length-1))){
-                            if((isLetter(charArray[j-1]) && isLetter(charArray[j+1]))){
-                                System.out.println("special");
-                            }
-                            else {
-                                fakeWord++;
-                            }
+            for (int j = 0; j < charArray.length; j++) {
+                char ch = charArray[j];
+                if (!(isLetter(ch))) {
+                    if(!((j==0) || (j==charArray.length-1))){
+                        if((isLetter(charArray[j-1]) && isLetter(charArray[j+1]))){
+                            System.out.println("special");
                         }
                         else {
                             fakeWord++;
                         }
                     }
+                    else {
+                        fakeWord++;
+                    }
                 }
+            }
             sum += wordArrayList.get(i).length();
         }
 

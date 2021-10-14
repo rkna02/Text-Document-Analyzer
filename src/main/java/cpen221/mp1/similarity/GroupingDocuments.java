@@ -85,17 +85,25 @@ public class GroupingDocuments {
         setOfSets.remove(setWitha);
         setOfSets.remove(setWithb);
         count--;
+        //setWitha = setWithb;
+        //
         setWithb.clear();
-        setWitha.clear();
+     setWitha.clear();
+    //    setWithb = null;
+      //  setWitha = null;
+
+        best = 1000.0;
+
         // System.out.println("PrevTest!!!!!!!!!");
         while(count > numberOfGroups){
             System.out.println("************************************************");
             while(setWitha.equals(setWithb)){
+                System.out.println("lmao");
                 for(Document i : allDocuments){
                     for(Document j : allDocuments){
                         if(i != j) {
                             if(wtf.documentDivergence(i,j) < best && wtf.documentDivergence(i,j) > prevBest) {
-                                best = wtf.documentDivergence(i,j);
+                                best = wtf.documentDivergence(i,j); //these lines are never reached
                                 a = i;
                                 for(Set<Document> s : setOfSets) {
                                     if(s.contains(a)) {
@@ -117,15 +125,17 @@ public class GroupingDocuments {
             }
             System.out.println("TEST!!!!!");
             //set with a merge with set with b
-            temp.clear();
-            temp.addAll(setWitha);
-            temp.addAll(setWithb);
-            setOfSets.add(temp);
+            Set<Document> temp2 = new HashSet<>();
+            temp2.addAll(setWitha);
+            temp2.addAll(setWithb);
+            setOfSets.add(temp2);
             setOfSets.remove(setWitha);
             setOfSets.remove(setWithb);
             count--;
             setWithb.clear();
             setWitha.clear();
+          //  setWithb = null;
+           // setWitha = null;
             setWitha = setWithb;
             //clear them again
         }

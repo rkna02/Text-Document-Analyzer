@@ -24,12 +24,12 @@ public class GroupingDocuments {
     public static Set<Set<Document>> groupBySimilarity(Set<Document> allDocuments, int numberOfGroups) {
         //built set of sets: <<Document1>,<Document2>,<Document3>...<DocumentN>>
         //check if count >= numberOfGroups
-            //if yes, return set of sets
-            //if not,...
-                //1st: select closest pair of documents
-                //2nd: check if these documents are already together
-                     //if yes, go do line 1 again
-                     //if not, merge the partitions with the two documents together
+        //if yes, return set of sets
+        //if not,...
+        //1st: select closest pair of documents
+        //2nd: check if these documents are already together
+        //if yes, go do line 1 again
+        //if not, merge the partitions with the two documents together
 
         DocumentSimilarity wtf = new DocumentSimilarity();
 
@@ -40,12 +40,17 @@ public class GroupingDocuments {
             setOfSets.add(innerSet);
         }
         int count = setOfSets.size();
+
+        if(count == numberOfGroups) {
+            return setOfSets;
+        }
         double best = 1000.0;
         double prevBest = 1000.0;
-        Document a;
-        Document b;
+        Document a = null;
+        Document b = null;
         Set<Document> setWitha = new HashSet<>();
         Set<Document> setWithb = new HashSet<>();
+
 
         for(Document i : allDocuments){
             for(Document j : allDocuments){
@@ -56,6 +61,18 @@ public class GroupingDocuments {
                         b = j;
                     }
                 }
+            }
+        }
+
+        for(Set<Document> l : setOfSets) {
+            if(l.contains(a)) {
+                setWitha = l;
+            }
+        }
+
+        for(Set<Document> l : setOfSets) {
+            if(l.contains(b)) {
+                setWithb = l;
             }
         }
 
@@ -70,35 +87,35 @@ public class GroupingDocuments {
         count--;
         setWithb.clear();
         setWitha.clear();
-
+        // System.out.println("PrevTest!!!!!!!!!");
         while(count > numberOfGroups){
-
+            System.out.println("************************************************");
             while(setWitha.equals(setWithb)){
                 for(Document i : allDocuments){
-                for(Document j : allDocuments){
-                    if(i != j) {
-                        if(wtf.documentDivergence(i,j) < best && wtf.documentDivergence(i,j) > prevBest) {
-                            best = wtf.documentDivergence(i,j);
-                            a = i;
-                            for(Set<Document> s : setOfSets) {
-                                if(s.contains(a)) {
-                                    setWitha = s;
+                    for(Document j : allDocuments){
+                        if(i != j) {
+                            if(wtf.documentDivergence(i,j) < best && wtf.documentDivergence(i,j) > prevBest) {
+                                best = wtf.documentDivergence(i,j);
+                                a = i;
+                                for(Set<Document> s : setOfSets) {
+                                    if(s.contains(a)) {
+                                        setWitha = s;
+                                    }
                                 }
-                            }
-                            b = j;
-                            for(Set<Document> s : setOfSets) {
-                                if(s.contains(b)) {
-                                    setWithb = s;
+                                b = j;
+                                for(Set<Document> s : setOfSets) {
+                                    if(s.contains(b)) {
+                                        setWithb = s;
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     }
                 }
-                }
                 prevBest = best;
             }
-
+            System.out.println("TEST!!!!!");
             //set with a merge with set with b
             temp.clear();
             temp.addAll(setWitha);

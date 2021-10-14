@@ -57,9 +57,7 @@ public class Document {
             // myFile.txt should be in the root directory for your project
 
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            for (String fileLine = reader.readLine();
-                 fileLine != null;
-                 fileLine = reader.readLine()) {
+            for (String fileLine = reader.readLine(); fileLine != null; fileLine = reader.readLine()) {
                 DocText.append(" ");
                 DocText.append(fileLine);
             }
@@ -77,8 +75,6 @@ public class Document {
      */
     public void init() {
         lowDocText = DocText.toString().toLowerCase();
-        int sum=0;
-        int bad=0;
 
         for(String word : lowDocText.split(" ")){
             if(word.length() != 0){
@@ -99,35 +95,30 @@ public class Document {
      */
     public double averageWordLength() {
 
-        int bad = 0;
-        int sum =0 ;
+        int fakeWord = 0;
+        int sum =0; //total length of all words in terms of characters
         for(int i=0; i<wordArrayList.size(); i++){
             char[] charArray = wordArrayList.get(i).toCharArray();
-            for (int j = 0; j < charArray.length; j++) {
-                char ch = charArray[j];
-                if (!(isLetter(ch))) {
-                    if(!((j==0) || (j==charArray.length-1))){
-                        if((isLetter(charArray[j-1]) && isLetter(charArray[j+1]))){
-                            System.out.println("special");
-
+                for (int j = 0; j < charArray.length; j++) {
+                    char ch = charArray[j];
+                    if (!(isLetter(ch))) {
+                        if(!((j==0) || (j==charArray.length-1))){
+                            if((isLetter(charArray[j-1]) && isLetter(charArray[j+1]))){
+                                System.out.println("special");
+                            }
+                            else {
+                                fakeWord++;
+                            }
                         }
                         else {
-                            bad++;
+                            fakeWord++;
                         }
-
-
                     }
-                    else {
-                        bad++;
-                    }
-
                 }
-
-            }
             sum += wordArrayList.get(i).length();
         }
 
-        sum -= bad;
+        sum -= fakeWord;
 
         int wordCount = 0;
         for(int i=0; i<wordArrayList.size(); i++){
@@ -143,8 +134,6 @@ public class Document {
      * @return the ratio of unique words (different words) to the total number of words in the document
      */
     public double uniqueWordRatio() {
-        int sum=0;
-        int bad=0;
 
         Set<String> set = new HashSet<String>();
 
@@ -165,8 +154,6 @@ public class Document {
      * @return the hapaxLegomanaRatio which is the ratio of words that only occur exactly once to that total number of words
      */
     public double hapaxLegomanaRatio() {
-        int sum=0;
-
         Map<String, Integer> UNIQ = new HashMap<>();
 
         for (String c : wordArrayList) {

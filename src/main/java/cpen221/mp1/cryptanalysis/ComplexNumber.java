@@ -10,7 +10,6 @@ public class ComplexNumber {
     }
 
     public ComplexNumber() {
-        // TODO: default constructor for 0 + i * 0
         realPart = 0;
         complexPart = 0;
     }
@@ -31,17 +30,21 @@ public class ComplexNumber {
     }
 
     public String toString() {
-        // TODO: return a string representation
-        return null;
+        StringBuilder rep = new StringBuilder();
+        rep.append(realPart);
+        rep.append('+');
+        rep.append(complexPart);
+        rep.append('i');
+        String actualRep = new String();
+        actualRep = rep.toString();
+        return actualRep;
     }
 
     public double re() {
-        // TODO: obtain the real valued part
         return realPart;
     }
 
     public double im() {
-        // TODO: obtain the imaginary part
         return complexPart;
     }
 

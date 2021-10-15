@@ -122,6 +122,7 @@ public class GroupingDocuments {
                     }
                 }
                 prevBest = best;
+                best = 1000.0;
             }
             System.out.println("TEST!!!!!");
             //set with a merge with set with b
@@ -137,6 +138,7 @@ public class GroupingDocuments {
           //  setWithb = null;
            // setWitha = null;
             setWitha = setWithb;
+            best = 1000.0;
             //clear them again
         }
 

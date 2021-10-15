@@ -77,7 +77,7 @@ public class Task5SmokeTests {
 
     }
 
-   @Test
+    @Test
     public void allInOne() {
         testSet1 = new HashSet<>();
         testSet1.add(testDocument1);
@@ -93,6 +93,31 @@ public class Task5SmokeTests {
         Set<Set<Document>> bigSet = new HashSet<>();
         bigSet.add(testSet1);
         Assertions.assertEquals(bigSet, groupBySimilarity(testSet3, 1));
+    }
+
+    @Test
+    public void randomTesting() {
+        testSet1 = new HashSet<>();
+        testSet1.add(testDocument4);
+
+        testSet2 = new HashSet<>();
+        testSet2.add(testDocument1);
+        testSet2.add(testDocument2);
+        testSet2.add(testDocument3);
+
+
+
+        testSet3 = new HashSet<>();
+        testSet3.add(testDocument1);
+        testSet3.add(testDocument2);
+        testSet3.add(testDocument3);
+        testSet3.add(testDocument4);
+
+
+        Set<Set<Document>> bigSet = new HashSet<>();
+        bigSet.add(testSet1);
+        bigSet.add(testSet2);
+        Assertions.assertEquals(bigSet, groupBySimilarity(testSet3, 2));
     }
 
 

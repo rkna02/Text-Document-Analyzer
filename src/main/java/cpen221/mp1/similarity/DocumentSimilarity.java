@@ -42,6 +42,54 @@ public class DocumentSimilarity {
      */
     public double jsDivergence(Document doc1, Document doc2) {
 
+        Set<String> words = this.wordAppearances(doc1, doc2);
+        double sum = 0.0;
+
+        for (String w: words) {
+            double pi = this.Probability(doc1,w);
+
+            double qi = this.Probability(doc2,w);
+            double mi = (pi + qi) / 2.0;
+
+            double exp1=0.0;
+            double exp2=0.0;
+
+            if(pi == 0){
+                exp1 = 0.0;
+            }
+            else {
+                exp1 = pi * (Math.log(pi / mi) / Math.log(2.0));
+            }
+
+            if(qi == 0){
+                exp2 = 0;
+            }
+            else {
+                exp1 = qi * (Math.log(qi / mi) / Math.log(2.0));
+            }
+
+            //System.out.println(pi + " " + qi + " " + mi);
+
+            //sum = pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0)); //BUUUUUUUGGGGGGGGGGGGGG
+
+            //0.5 * pi * qi * (Math.log(qi / mi) / Math.log(2.0));
+
+            sum += exp1 + exp2;
+
+            if(sum != 0){
+                System.out.println("lmao");
+            }
+
+           // System.out.println(sum);
+        }
+
+       // System.out.println(sum + " bruh");
+
+        return sum/2;
+    }
+
+    /*public double jsDivergence2(Document doc1, Document doc2) { //can't use rip
+
         Set<String> words = doc1.wordAppearances(doc2);
         double sum = 0.0;
 
@@ -52,7 +100,74 @@ public class DocumentSimilarity {
             sum = pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0));
         }
 
+        System.out.println(sum / 2.0 + " bruh");
         return sum / 2.0;
+    } */
+    /**
+     * Compute the probability of a word appearing in two documents
+     * @param word a word appearing in both documents
+     * @return The probability of the word appearing in both documents
+     */
+    public double Probability(Document document, String word) {
+
+        ArrayList<String> wordArrayList = new ArrayList<String>();
+        for(int i=1; i<=document.numSentences(); i++){
+            for(String wor : document.getSentence(i).split(" ")){
+                if(filter(wor) != ""){
+                    wordArrayList.add(filter(wor));
+                }
+            }
+        }
+
+        double count = 0.0;
+
+        for (String s: wordArrayList) {
+            if (word.equals(s)) {
+                count = count + 1.0;
+            }
+        }
+        return count / wordArrayList.size();
+    }
+
+    /**
+     * Stores all the words appearing in both documents in a set
+     * @param **********************************************************************************
+     * @return A set containing all the words that appear in both lists
+     */
+    public Set<String> wordAppearances(Document doc1, Document doc2) {
+        Set<String> wordAppearances = new HashSet<>();
+
+        ArrayList<String> wordArrayList1 = new ArrayList<String>();
+
+        ArrayList<String> wordArrayList2 = new ArrayList<String>();
+
+        for(int i=1; i<=doc1.numSentences(); i++){
+            for(String wor : doc1.getSentence(i).split(" ")){
+                if(filter(wor) != ""){
+                    wordArrayList1.add(filter(wor));
+                }
+            }
+        }
+
+        for(int i=1; i<=doc2.numSentences(); i++){
+            for(String wor : doc2.getSentence(i).split(" ")){
+                if(wor.length() != 0){
+                    if(filter(wor) != ""){
+                        wordArrayList2.add(filter(wor));
+                    }
+                }
+            }
+        }
+
+
+        //Add words that appear in both lists to a set
+        for (String w: wordArrayList1) {
+            if (wordArrayList2.contains(w)) {
+                wordAppearances.add(w);
+                //System.out.println(c + " from");
+            }
+        }
+        return wordAppearances;
     }
 
     /**
@@ -83,6 +198,82 @@ public class DocumentSimilarity {
         }
 
         return firstTerm + secondTerm;
+    }
+
+
+    public String filter(String raw) {
+
+        boolean poundFlag = true;
+        boolean allBad = true;
+
+        StringBuilder sb = new StringBuilder(raw);
+
+        int frontInd = 0;
+        int rearInd = 0;
+
+        for(int i=raw.length(); i>0; i--){ //scan from rear
+            char ch = raw.charAt(i-1);
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
+                rearInd = i-1;
+                allBad = false;
+                //System.out.println("end" + rearInd);
+                break;
+            }
+        }
+
+        if(allBad) { //if all punctuation then return empty
+            return "";
+        }
+
+        for(int i=0; i<raw.length(); i++){ //scan from front
+            char ch = raw.charAt(i);
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch == '#')) {
+                frontInd = i;
+                //System.out.println("frnt" + i);
+                break;
+            }
+        }
+
+        for(int i=frontInd; i<=rearInd; i++){
+
+
+            char ch = raw.charAt(i);
+
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
+                poundFlag = true;
+                break;
+            }
+            else {
+                poundFlag = false;
+            }
+
+        }
+
+        if(poundFlag == false){
+            return "";
+        }
+
+        return sb.substring(frontInd, rearInd+1).toString().toLowerCase();
+
+        //System.out.println(raw.length()-1 + " " + keyInd);
+
+        /*for (int i = 0; i < raw.length(); i++) {
+
+            char ch = raw.charAt(i);
+            if(i >= keyInd){
+                goodFlag = false;
+            }
+            if ((ch >= 'A' && ch <= 'Z') ||
+                    (ch >= 'a' && ch <= 'z') ||
+                    (ch >= '0' && ch <= '9') || goodFlag == true) {
+                sb.append(ch);
+
+                goodFlag = true;
+            }
+
+        }
+        return sb.toString(); */
+
     }
 
 }

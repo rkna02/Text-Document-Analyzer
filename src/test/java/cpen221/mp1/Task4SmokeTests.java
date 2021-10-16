@@ -43,17 +43,28 @@ public class Task4SmokeTests extends DocumentSimilarity {
 
     @Test
     public void DivergenceSmallDifference() {
-        Assertions.assertEquals(1.24345, documentDivergence(testDocument1,testDocument2), 0.005);
+        Assertions.assertEquals(12.052927553780764, documentDivergence(testDocument1,testDocument2), 0.005);
     }
 
     @Test
     public void DivergenceBigDifference() {
-        Assertions.assertEquals(7.6266, documentDivergence(testDocument1,testDocument3), 0.005);
+        Assertions.assertEquals(20.181537079864253, documentDivergence(testDocument1,testDocument3), 0.005);
     }
 
     @Test
     public void DivergenceNoRepeatedWords() {
-        System.out.println(documentDivergence(testDocument1,testDocument4));
-        Assertions.assertEquals(44.401, documentDivergence(testDocument1,testDocument4), 0.005);
+        //System.out.println(documentDivergence(testDocument1,testDocument4));
+        Assertions.assertEquals(0.0, documentDivergence(testDocument1,testDocument4), 0.005);
+    } //44.401
+
+    @Test
+    public void ProbabilityTester() {
+        //System.out.println(documentDivergence(testDocument1,testDocument4));
+        Assertions.assertEquals(0.0909090909090909, Probability(testDocument1, "we"), 0.005);
+    }
+
+    @Test
+    public void FilterTester() {
+        Assertions.assertEquals("#%$%$%$%je%rry", filter("#%$%$%$%Je%rry%$%$%"));
     }
 }

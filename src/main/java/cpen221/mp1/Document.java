@@ -73,7 +73,7 @@ public class Document {
     /**
      *Initializes wordArrayList which is a list of the words of the document
      */
-    public void init() {
+    private void init() {
         lowDocText = DocText.toString().toLowerCase();
 
         for(String word : lowDocText.split(" ")){
@@ -104,7 +104,7 @@ public class Document {
                 if (!(isLetter(ch))) {
                     if(!((j==0) || (j==charArray.length-1))){
                         if((isLetter(charArray[j-1]) && isLetter(charArray[j+1]))){
-                            System.out.println("special");
+                          //  System.out.println("special");
                         }
                         else {
                             fakeWord++;
@@ -124,8 +124,8 @@ public class Document {
         for(int i=0; i<wordArrayList.size(); i++){
             wordCount++;
         }
-        System.out.println(sum);
-        System.out.println(wordCount);
+      //  System.out.println(sum);
+      //  System.out.println(wordCount);
 
         return (double) sum/(wordCount);
     }
@@ -234,7 +234,7 @@ public class Document {
      * @return the average sentence length
      */
     public double averageSentenceLength() {
-        System.out.println(wordArrayList.size() + " " + numSentences());
+        //System.out.println(wordArrayList.size() + " " + numSentences());
         return (double) wordArrayList.size()/numSentences();
     }
 
@@ -251,7 +251,7 @@ public class Document {
                 for(int j=0; j<phrase.length(); j++){
                     if(((phrase.charAt(j) >= 'a' && phrase.charAt(j) <= 'z'))){
                         phraseArrayList.add(phrase);
-                        System.out.println(phrase);
+                      //  System.out.println(phrase);
                         count++;
                         break;
                     }
@@ -260,7 +260,7 @@ public class Document {
 
             }
         }
-        System.out.println(count);
+     //   System.out.println(count);
         return (double) (phraseArrayList.size()) / numSentences();
     }
 
@@ -306,7 +306,7 @@ public class Document {
 
     /* ------- Task 4 ------- */
 
-    /* Helper Functions */
+    /* Helper Functions useless now since they were made private but here anyways lol*/
 
     /**
      * Compute the probability of a word appearing in two documents
@@ -336,6 +336,7 @@ public class Document {
         for (String c: this.wordArrayList) {
             if (doc.wordArrayList.contains(c)) {
                 wordAppearances.add(c);
+                System.out.println(c + " from");
             }
         }
         return wordAppearances;

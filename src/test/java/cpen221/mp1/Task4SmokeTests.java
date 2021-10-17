@@ -57,13 +57,8 @@ public class Task4SmokeTests extends DocumentSimilarity {
     }
 
     @Test
-    public void ProbabilityTester() {
-        //System.out.println(documentDivergence(testDocument1,testDocument4));
-        Assertions.assertEquals(0.04166, Probability(testDocument1, "meticulously"), 0.005);
+    public void jsDivergence() {
+        Assertions.assertEquals(0.786, jsDivergence(testDocument1,testDocument4), 0.005);
     }
 
-    @Test
-    public void FilterTester() {
-        Assertions.assertEquals("#%$%$%$%je%rry", filter("#%$%$%$%Je%rry%$%$%"));
-    }
 }

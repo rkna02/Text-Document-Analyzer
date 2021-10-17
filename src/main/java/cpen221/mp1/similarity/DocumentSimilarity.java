@@ -1,20 +1,8 @@
 package cpen221.mp1.similarity;
 
 import cpen221.mp1.Document;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.Math;
-import java.net.URL;
-import java.text.BreakIterator;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 import static java.lang.Character.isLetter;
@@ -42,7 +30,7 @@ public class DocumentSimilarity {
      */
     public double jsDivergence(Document doc1, Document doc2) {
 
-        Set<String> words = this.wordAppearances(doc1, doc2);
+        Set<String> words = this.wordAppearances(doc1, doc2); //union of words from doc1 with that of doc2
         double sum = 0.0;
 
         for (String w: words) {
@@ -54,19 +42,10 @@ public class DocumentSimilarity {
             double exp1=0.0;
             double exp2=0.0;
 
-            if(pi == 0){
-                exp1 = 0.0;
-            }
-            else {
-                exp1 = pi * (Math.log(pi / mi) / Math.log(2.0));
-            }
 
-            if(qi == 0){
-                exp2 = 0;
-            }
-            else {
-                exp2 = qi * (Math.log(qi / mi) / Math.log(2.0));
-            }
+            exp1 = (pi == 0) ? 0.0 : pi * (Math.log(pi / mi) / Math.log(2.0));
+
+            exp2 = (qi == 0) ? 0.0 : qi * (Math.log(qi / mi) / Math.log(2.0));
 
             sum += exp1 + exp2;
         }
@@ -76,13 +55,14 @@ public class DocumentSimilarity {
 
 
     /**
-     * Compute the probability of a word appearing in two documents
-     * @param word a word appearing in both documents
-     * @return The probability of the word appearing in both documents
+     * Compute the probability of a word appearing in the document
+     * @param word which is a word
+     * @param document which is a Document
+     * @return The probability of the word appearing in the document
      */
-    public double Probability(Document document, String word) {
+    private double Probability(Document document, String word) {
 
-        ArrayList<String> wordArrayList = new ArrayList<String>();
+        ArrayList<String> wordArrayList = new ArrayList<String>(); //get the words in document
         for(int i=1; i<=document.numSentences(); i++){
             for(String wor : document.getSentence(i).split(" ")){
                 if(filter(wor) != ""){
@@ -93,7 +73,7 @@ public class DocumentSimilarity {
 
         double count = 0.0;
 
-        for (String s: wordArrayList) {
+        for (String s: wordArrayList) { //find the number of its occurrences
             if (word.equals(s)) {
                 count = count + 1.0;
             }
@@ -103,13 +83,14 @@ public class DocumentSimilarity {
 
     /**
      * Stores all the words appearing in both documents in a set
-     * @param **********************************************************************************
-     * @return A set containing all the words that appear in both lists
+     * @param doc1, the first Document, not null
+     * @param doc2, second Document, not null
+     * @return A set containing all the words from doc1 and doc2
      */
-    public Set<String> wordAppearances(Document doc1, Document doc2) {
+    private Set<String> wordAppearances(Document doc1, Document doc2) {
         Set<String> wordAppearances = new HashSet<>();
 
-        for(int i=1; i<=doc1.numSentences(); i++){
+        for(int i=1; i<=doc1.numSentences(); i++){  //add words from doc1
             for(String wor : doc1.getSentence(i).split(" ")){
                 if(filter(wor) != ""){
                     wordAppearances.add(filter(wor));
@@ -117,7 +98,7 @@ public class DocumentSimilarity {
             }
         }
 
-        for(int i=1; i<=doc2.numSentences(); i++){
+        for(int i=1; i<=doc2.numSentences(); i++){ //add words from doc2
             for(String wor : doc2.getSentence(i).split(" ")){
                 if(wor.length() != 0){
                     if(filter(wor) != ""){
@@ -166,7 +147,7 @@ public class DocumentSimilarity {
      * @param raw which is the unfiltered input String
      * @return a new String with the filtered String
      */
-    public String filter(String raw) {
+    private String filter(String raw) {
 
         boolean poundFlag = true;
         boolean allBad = true;

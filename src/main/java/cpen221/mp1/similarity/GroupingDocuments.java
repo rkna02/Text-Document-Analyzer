@@ -2,7 +2,6 @@ package cpen221.mp1.similarity;
 
 import cpen221.mp1.Document;
 
-import javax.print.Doc;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -91,14 +90,13 @@ public class GroupingDocuments {
         best = 1000.0;
 
         while(count > numberOfGroups){
-            System.out.println("************************************************");
             while(setWitha.equals(setWithb)){
                 System.out.println("lmao");
                 for(Document i : allDocuments){
                     for(Document j : allDocuments){
                         if(i != j) {
                             if(wtf.documentDivergence(i,j) < best && wtf.documentDivergence(i,j) > prevBest) {
-                                best = wtf.documentDivergence(i,j); //these lines are never reached
+                                best = wtf.documentDivergence(i,j);
                                 a = i;
                                 for(Set<Document> s : setOfSets) {
                                     if(s.contains(a)) {
@@ -119,7 +117,6 @@ public class GroupingDocuments {
                 prevBest = best;
                 best = 1000.0;
             }
-            System.out.println("TEST!!!!!");
             //set with a merge with set with b
             Set<Document> temp2 = new HashSet<>();
             temp2.addAll(setWitha);

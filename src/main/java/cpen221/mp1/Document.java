@@ -1,9 +1,6 @@
 package cpen221.mp1;
 
 import cpen221.mp1.exceptions.NoSuitableSentenceException;
-import cpen221.mp1.sentiments.SentimentAnalysis;
-
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +8,6 @@ import java.net.URL;
 import java.text.BreakIterator;
 import java.util.*;
 
-import static java.lang.Character.isLetter;
 
 public class Document {
 
@@ -20,7 +16,7 @@ public class Document {
 
     private StringBuilder DocText = new StringBuilder();
     private String lowDocText = new String();
-    private ArrayList<String> wordArrayList = new ArrayList<String>();
+    private ArrayList<String> wordArrayList = new ArrayList<>();
     private  String docId;
     /**
      * Create a new document using a URL
@@ -28,8 +24,6 @@ public class Document {
      * @param docURL the URL with the contents of the document
      */
     public Document(String docId, URL docURL) {
-        //this.docId = docId;
-
         try {
             String documentURL = docURL.toString();
             Scanner urlScanner = new Scanner(new URL(documentURL).openStream());
@@ -70,7 +64,8 @@ public class Document {
     }
 
     /* ------- Task 1 ------- */
-    /**
+
+    /**Helper method:
      *Initializes wordArrayList which is a list of the words of the document
      */
     private void init() {
@@ -246,8 +241,6 @@ public class Document {
                         break;
                     }
                 }
-
-
             }
         }
         return (double) (phraseArrayList.size()) / numSentences();
@@ -293,6 +286,17 @@ public class Document {
         return cpen221.mp1.sentiments.SentimentAnalysis.getMostNegativeSentence(this);
     }
 
+    /**
+     * Checks if input character is a valid letter (capital or lower-case accepted)
+     * @param input, a character input to analyze
+     * @return boolean true or false
+     */
+    private boolean isLetter(char input) {
+        if((input >= 'A' && input <= 'Z') || (input >= 'a' && input <= 'z')  ){
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Helper method which filters an input string to remove garbage characters as per MP1 requirements

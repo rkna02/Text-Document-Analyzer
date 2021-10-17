@@ -85,16 +85,11 @@ public class GroupingDocuments {
         setOfSets.remove(setWitha);
         setOfSets.remove(setWithb);
         count--;
-        //setWitha = setWithb;
-        //
         setWithb.clear();
-     setWitha.clear();
-    //    setWithb = null;
-      //  setWitha = null;
+         setWitha.clear();
 
         best = 1000.0;
 
-        // System.out.println("PrevTest!!!!!!!!!");
         while(count > numberOfGroups){
             System.out.println("************************************************");
             while(setWitha.equals(setWithb)){
@@ -135,11 +130,8 @@ public class GroupingDocuments {
             count--;
             setWithb.clear();
             setWitha.clear();
-          //  setWithb = null;
-           // setWitha = null;
             setWitha = setWithb;
             best = 1000.0;
-            //clear them again
         }
 
         return setOfSets;

@@ -77,15 +77,8 @@ public class Document {
         lowDocText = DocText.toString().toLowerCase();
 
         for(String word : lowDocText.split(" ")){
-            if(word.length() != 0){
-                if(word.length() == 1){
-                    if(((word.charAt(0) >= 'a' && word.charAt(0) <= 'z'))){
-                        wordArrayList.add(word);
-                    }
-                }
-                else {
-                    wordArrayList.add(word);
-                }
+            if(filter(word) != ""){
+                wordArrayList.add(filter(word));
             }
         }
     }
@@ -198,7 +191,6 @@ public class Document {
              start = end, end = iterator.next()) {
 
             String sentence = DocText.toString().substring(start, end);
-            // System.out.println(sentence);
             sentenceCount++;
         }
         return sentenceCount;
@@ -218,16 +210,15 @@ public class Document {
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
         iterator.setText(DocText.toString());
         int start = iterator.first();
-        for (int end = iterator.next();
-             end != BreakIterator.DONE;
-             start = end, end = iterator.next()) {
+        for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()) {
 
             String sentence = DocText.toString().substring(start, end);
             lowDocText2.add(sentence);
+            //System.out.println(sentence);
 
         }
 
-        return lowDocText2.get(sentence_number-1).trim(); //remove any trailing spaces
+        return lowDocText2.get(sentence_number-1).trim(); //remove any trailing spaces, -1 to compensate for the 1 indexing
     }
 
     /**
@@ -251,7 +242,6 @@ public class Document {
                 for(int j=0; j<phrase.length(); j++){
                     if(((phrase.charAt(j) >= 'a' && phrase.charAt(j) <= 'z'))){
                         phraseArrayList.add(phrase);
-                      //  System.out.println(phrase);
                         count++;
                         break;
                     }
@@ -260,7 +250,6 @@ public class Document {
 
             }
         }
-     //   System.out.println(count);
         return (double) (phraseArrayList.size()) / numSentences();
     }
 
@@ -304,42 +293,64 @@ public class Document {
         return cpen221.mp1.sentiments.SentimentAnalysis.getMostNegativeSentence(this);
     }
 
-    /* ------- Task 4 ------- */
-
-    /* Helper Functions useless now since they were made private but here anyways lol*/
 
     /**
-     * Compute the probability of a word appearing in two documents
-     * @param word a word appearing in both documents
-     * @return The probability of the word appearing in both documents
+     * Helper method which filters an input string to remove garbage characters as per MP1 requirements
+     * In my implementation, ######hello is a valid filtered string.
+     * @param raw which is the unfiltered input String
+     * @return a new String with the filtered String
      */
-    public double Probability(String word) {
-        double count = 0.0;
+    private String filter(String raw) {
 
-        for (String s: wordArrayList) {
-            if (word.equals(s)) {
-                count = count + 1.0;
+        boolean poundFlag = true;
+        boolean allBad = true;
+
+        StringBuilder sb = new StringBuilder(raw);
+
+        int frontInd = 0;
+        int rearInd = 0;
+
+        for(int i=raw.length(); i>0; i--){ //scan from rear
+            char ch = raw.charAt(i-1);
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
+                rearInd = i-1;
+                allBad = false;
+                break;
             }
         }
-        return count / wordArrayList.size();
-    }
 
-    /**
-     * Stores all the words appearing in both documents in a set
-     * @param doc list of strings
-     * @return A set containing all the words that appear in both lists
-     */
-    public Set<String> wordAppearances(Document doc) {
-        Set<String> wordAppearances = new HashSet<>();
+        if(allBad) { //if all punctuation then return empty
+            return "";
+        }
 
-        //Add words that appear in both lists to a set
-        for (String c: this.wordArrayList) {
-            if (doc.wordArrayList.contains(c)) {
-                wordAppearances.add(c);
-                System.out.println(c + " from");
+        for(int i=0; i<raw.length(); i++){ //scan from front
+            char ch = raw.charAt(i);
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch == '#')) {
+                frontInd = i;
+                break;
             }
         }
-        return wordAppearances;
-    }
 
+        for(int i=frontInd; i<=rearInd; i++){
+
+
+            char ch = raw.charAt(i);
+
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
+                poundFlag = true;
+                break;
+            }
+            else {
+                poundFlag = false;
+            }
+
+        }
+
+        if(poundFlag == false){
+            return "";
+        }
+
+        return sb.substring(frontInd, rearInd+1).toString().toLowerCase();
+
+    }
 }

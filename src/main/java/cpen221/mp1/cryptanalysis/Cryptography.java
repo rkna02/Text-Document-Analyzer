@@ -2,6 +2,8 @@ package cpen221.mp1.cryptanalysis;
 
 import cpen221.mp1.Document;
 
+import java.security.spec.EncodedKeySpec;
+
 public abstract class Cryptography {
 
     /**
@@ -29,7 +31,46 @@ public abstract class Cryptography {
      */
     public static int[] encrypt(Document doc, int length, int period, int amplitude) {
         // TODO: implement this method
-        return null;
+        //extract the sentences from Document one by one and append it into a StringBuilder
+
+        double CONSTANT_PI = 3.141593;
+
+        StringBuilder string = new StringBuilder();
+        int periodCounter = 0;
+        for(int i=0; i<doc.numSentences(); i++){
+            string.append(doc.getSentence(i+1));
+            string.append(" "); //CHECK IF THERE IS SOMETHING AFTER IT
+            String checker = doc.getSentence(i+1);
+            if(checker.contains(".")) {
+                periodCounter++;
+            }
+
+        }
+
+        if(length < string.length()) {
+            int[] encArray = new int[string.length()];
+            for(int i=0; i<length; i++){
+                System.out.println(string.charAt(i));
+                encArray[i] = (int) (string.charAt(i) + amplitude*Math.sin(i*2*CONSTANT_PI/period + CONSTANT_PI/4.0));
+            }
+            for(int i=length; i< string.length(); i++){
+                System.out.println(string.charAt(i));
+                encArray[i] = (int) (string.charAt(i));
+            }
+            return encArray;
+        }
+        else {
+            int[] encArray2 = new int[length];
+            for(int i=0; i<string.length(); i++){
+                System.out.println(string.charAt(i));
+                encArray2[i] = (int) (string.charAt(i) + amplitude*Math.sin(i*2*CONSTANT_PI/period + CONSTANT_PI/4.0));
+            }
+            for(int i=string.length(); i<length; i++){
+                encArray2[i] = (int) (' ' + amplitude*Math.sin(i*2*CONSTANT_PI/period + CONSTANT_PI/4.0));
+            }
+            return encArray2;
+        }
+
     }
 
     /**

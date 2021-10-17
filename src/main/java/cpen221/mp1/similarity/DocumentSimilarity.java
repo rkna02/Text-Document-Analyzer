@@ -65,44 +65,16 @@ public class DocumentSimilarity {
                 exp2 = 0;
             }
             else {
-                exp1 = qi * (Math.log(qi / mi) / Math.log(2.0));
+                exp2 = qi * (Math.log(qi / mi) / Math.log(2.0));
             }
-
-            //System.out.println(pi + " " + qi + " " + mi);
-
-            //sum = pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0)); //BUUUUUUUGGGGGGGGGGGGGG
-
-            //0.5 * pi * qi * (Math.log(qi / mi) / Math.log(2.0));
 
             sum += exp1 + exp2;
-
-            if(sum != 0){
-                System.out.println("lmao");
-            }
-
-           // System.out.println(sum);
         }
-
-       // System.out.println(sum + " bruh");
 
         return sum/2;
     }
 
-    /*public double jsDivergence2(Document doc1, Document doc2) { //can't use rip
 
-        Set<String> words = doc1.wordAppearances(doc2);
-        double sum = 0.0;
-
-        for (String c: words) {
-            double pi = doc1.Probability(c);
-            double qi = doc2.Probability(c);
-            double mi = (pi + qi) / 2.0;
-            sum = pi * (Math.log(pi / mi) / Math.log(2.0)) + qi * (Math.log(qi / mi) / Math.log(2.0));
-        }
-
-        System.out.println(sum / 2.0 + " bruh");
-        return sum / 2.0;
-    } */
     /**
      * Compute the probability of a word appearing in two documents
      * @param word a word appearing in both documents
@@ -137,14 +109,10 @@ public class DocumentSimilarity {
     public Set<String> wordAppearances(Document doc1, Document doc2) {
         Set<String> wordAppearances = new HashSet<>();
 
-        ArrayList<String> wordArrayList1 = new ArrayList<String>();
-
-        ArrayList<String> wordArrayList2 = new ArrayList<String>();
-
         for(int i=1; i<=doc1.numSentences(); i++){
             for(String wor : doc1.getSentence(i).split(" ")){
                 if(filter(wor) != ""){
-                    wordArrayList1.add(filter(wor));
+                    wordAppearances.add(filter(wor));
                 }
             }
         }
@@ -153,20 +121,12 @@ public class DocumentSimilarity {
             for(String wor : doc2.getSentence(i).split(" ")){
                 if(wor.length() != 0){
                     if(filter(wor) != ""){
-                        wordArrayList2.add(filter(wor));
+                        wordAppearances.add(filter(wor));
                     }
                 }
             }
         }
 
-
-        //Add words that appear in both lists to a set
-        for (String w: wordArrayList1) {
-            if (wordArrayList2.contains(w)) {
-                wordAppearances.add(w);
-                //System.out.println(c + " from");
-            }
-        }
         return wordAppearances;
     }
 
@@ -200,7 +160,12 @@ public class DocumentSimilarity {
         return firstTerm + secondTerm;
     }
 
-
+    /**
+     * Helper method which filters an input string to remove garbage characters as per MP1 requirements
+     * In my implementation, ######hello is a valid filtered string.
+     * @param raw which is the unfiltered input String
+     * @return a new String with the filtered String
+     */
     public String filter(String raw) {
 
         boolean poundFlag = true;
@@ -216,7 +181,6 @@ public class DocumentSimilarity {
             if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
                 rearInd = i-1;
                 allBad = false;
-                //System.out.println("end" + rearInd);
                 break;
             }
         }
@@ -229,7 +193,6 @@ public class DocumentSimilarity {
             char ch = raw.charAt(i);
             if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch == '#')) {
                 frontInd = i;
-                //System.out.println("frnt" + i);
                 break;
             }
         }
@@ -254,25 +217,6 @@ public class DocumentSimilarity {
         }
 
         return sb.substring(frontInd, rearInd+1).toString().toLowerCase();
-
-        //System.out.println(raw.length()-1 + " " + keyInd);
-
-        /*for (int i = 0; i < raw.length(); i++) {
-
-            char ch = raw.charAt(i);
-            if(i >= keyInd){
-                goodFlag = false;
-            }
-            if ((ch >= 'A' && ch <= 'Z') ||
-                    (ch >= 'a' && ch <= 'z') ||
-                    (ch >= '0' && ch <= '9') || goodFlag == true) {
-                sb.append(ch);
-
-                goodFlag = true;
-            }
-
-        }
-        return sb.toString(); */
 
     }
 

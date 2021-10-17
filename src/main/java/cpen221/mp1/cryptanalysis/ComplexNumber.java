@@ -25,8 +25,9 @@ public class ComplexNumber {
     }
 
     public void multiply(ComplexNumber other) {
+        double temp = realPart;
         realPart = realPart*other.re() - complexPart*other.im();
-        complexPart = complexPart*other.re()+realPart*other.im();
+        complexPart = complexPart*other.re()+temp*other.im();
     }
 
     public String toString() {

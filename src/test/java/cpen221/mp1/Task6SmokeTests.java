@@ -61,12 +61,12 @@ public class Task6SmokeTests {
 
     @Test
     public void preliminaryEnc() {
-        Assertions.assertEquals(4, encrypt(testDocument1,20,2,64));
+        Assertions.assertEquals(4, encrypt(testDocument1,20,5,64));
     }
 
     @Test
     public void preliminaryDec() {
-        int[] a = {117, 55, 153, 62, 156, -13, 77, -13, 77, -13, 77, -13, 77, -13, 77, -13, 77, -13, 77, -13};
+        int[] a = {117, 158, 97, 44, 81, 77, 89, 21, -31, 2, 77, 89, 21, -31, 2, 77, 89, 21, -31, 2};
 
         ComplexNumber[] b = dft(a);
         double max = 0;

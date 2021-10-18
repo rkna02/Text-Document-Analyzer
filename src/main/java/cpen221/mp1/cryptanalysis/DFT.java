@@ -1,7 +1,14 @@
 package cpen221.mp1.cryptanalysis;
 
+import cpen221.mp1.exceptions.NoSuitableSentenceException;
+
 public abstract class DFT {
 
+    /**
+     * Performs DFT on a complex number array
+     * @param inSignal, the ComplexNumber array
+     * @return the result of the DFT in an array of ComplexNumbers
+     */
     public static ComplexNumber[] dft(ComplexNumber[] inSignal) {
 
 
@@ -29,6 +36,11 @@ public abstract class DFT {
 
     }
 
+    /**
+     * Performs DFT on an integer number array
+     * @param inSignal, the integer array
+     * @return the result of the DFT in an array of ComplexNumbers
+     */
     public static ComplexNumber[] dft(int[] inSignal) {
 
         double CONSTANT_PI = 3.141593;

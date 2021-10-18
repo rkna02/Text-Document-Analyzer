@@ -15,6 +15,8 @@ public class Task4SmokeTests extends DocumentSimilarity {
     private static Document testDocument3;
     private static Document testDocument4;
     private static Document testDocument5;
+    private static Document DtestDocument1;
+    private static Document garbage;
 
     @BeforeAll
     public static void setupTests() throws MalformedURLException {
@@ -23,6 +25,8 @@ public class Task4SmokeTests extends DocumentSimilarity {
         testDocument3 = new Document("Task four test document three", "resources/task4TestDoc3.txt");
         testDocument4 = new Document("Task four test document four", "resources/task4TestDoc4.txt");
         testDocument5 = new Document("The Ant and The Cricket", "resources/antcrick.txt");
+        DtestDocument1 = new Document("Task four test document one", "resources/task4TestDoc1.txt");
+        garbage = new Document( "garbge", "resources/garbageText.txt");
 
     }
 
@@ -59,6 +63,11 @@ public class Task4SmokeTests extends DocumentSimilarity {
     @Test
     public void jsDivergence() {
         Assertions.assertEquals(0.786, jsDivergence(testDocument1,testDocument4), 0.005);
+    }
+
+    @Test
+    public void garbageTesting() { //MISSING
+        Assertions.assertEquals(64.75000000000003, documentDivergence(DtestDocument1,garbage), 0.005);
     }
 
 }

@@ -122,7 +122,7 @@ public class SummaryTest extends DocumentSimilarity{
         }
     }
 
-    @Test
+    @Test //MISSING
     public void testException() {
         boolean flag = false;
         try {Assertions.assertEquals("\"Well, try dancing now!\"", empty.getMostPositiveSentence());}
@@ -184,7 +184,7 @@ public class SummaryTest extends DocumentSimilarity{
     }
 
     @Test
-    public void garbageTesting() {
+    public void garbageTesting() { //MISSING
         Assertions.assertEquals(64.75000000000003, documentDivergence(DtestDocument1,garbage), 0.005);
     }
 

@@ -15,6 +15,7 @@ public class SentimentAnalysis {
      * Finds the most negative-sounding sentence in a document based on its tone and sentiments
      * @param document1 a document, is not null
      * @return The most negative-sounding sentence in a document
+     * @throws NoSuitableSentenceException when it is unable to determine the most positive sentence
      */
     public static String getMostPositiveSentence(cpen221.mp1.Document document1) throws NoSuitableSentenceException {
 
@@ -54,6 +55,7 @@ public class SentimentAnalysis {
      * Finds the most negative-sounding sentence in a document based on its tone and sentiments
      * @param document2 a document, is not null
      * @return The most negative-sounding sentence in a document
+     * @throws NoSuitableSentenceException when it is unable to determine the most negative sentence
      */
     public static String getMostNegativeSentence(cpen221.mp1.Document document2) throws NoSuitableSentenceException {
         // TODO: Implement this method
